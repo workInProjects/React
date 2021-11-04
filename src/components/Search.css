@@ -1,0 +1,11 @@
+.search-container {
+    display: flex;
+}
+.search-bar-btn {
+    flex-shrink: 0;
+    width: 50px;
+    height: 54px;
+    border: none;
+    background: url('https://img.icons8.com/search') no-repeat 50% 50%;
+    border-radius: 0 5px 5px 0;
+}
