@@ -1,10 +1,10 @@
-import React from "react"
-import './Footer.css'
+import React from "react";
+import './Footer.css';
 
 function Footer() {
     return (
         <section className="footer">
-        <hr className="footer-seperator" />
+        <hr className="footer-seperator"/>   
         <section className="footer-social-media">
         </section>
         <section className="footer-info">

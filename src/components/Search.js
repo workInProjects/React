@@ -1,42 +1,87 @@
+import React, {useState,useEffect} from 'react';
+import Select from 'react-select';
+import queryString from 'query-string';
+import { createBrowserHistory } from "history";
+import './Search.css';
 
-import React, { useState } from 'react';
-import './Search.css'
+function Search(props) {
+  let history = createBrowserHistory(); 
+  const [filters, setFilters] = useState();
+
+  useEffect(() => {
+    setFilters(queryString.parse(window.location.search));
+  }, []); 
 
 
-const Search = ({ onSearch }) => {
-  const [term, setTerm] = useState('');
+  const options = [
+    { value: 'au', label: 'Austria',},
+    { value: 'br', label: 'Brasilia',},
+    { value: 'ca', label: 'Canada', },
+    { value: 'fr', label: 'France',},
+    { value: 'de', label: 'Germany',},
+    { value: 'US', label: 'United States',}
+    // {AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IR, NO, NL,
+    // NZ, TR, US }
+  ]; 
+ 
+  const  gender = [
+    { value: 'all', label: 'All'},
+    { value: 'male', label: 'Male'},
+    { value: 'female', label: 'Female'}  
+  ];
 
-    function search() {
-      onSearch(term)
+  const filteredNat = filters && filters.nat ? filters.nat.split(',') : [];
+ 
+  const addFilter = (type, obj) => {  
+    let filterData = '';
+    if (Array.isArray(obj)){
+      filterData = obj.map(o => o.value).join(','); 
+    } else {
+      filterData = obj.value;
+    }
+    const newQuery = {
+      ...filters,
+      [type]: filterData
     };
+    setFilters(newQuery)
+  };
 
-    function handleKeyPress(event) {
-      if(event.key === 'Enter'){
-        search()
-      }
-    }
+  const onSearch = (e) => {
+    e.preventDefault()
+    history.push({
+      pathname: window.location.pathname,
+      search: `?${queryString.stringify(filters)}`
+    });
+    props.onSearch();
+  };
 
-    function setTermValue(event) {
-      setTerm(event.target.value)
-    }
-
-    return (
-      <div className="search-container">
-            <input 
-                  type="text"
-                  className="form-control search-input"
-                  placeholder="type to search"
-                  onChange={setTermValue}
-                  value={term}
-                  onKeyPress={handleKeyPress}    
-              />
-            <button 
-            className="search-bar-btn"
-            onClick={search} />
-     </div>
-    );
-    
+  return (
+    <div className='search'>
+        <Select
+          className='select' 
+          placeholder='Gender'
+          options={gender}
+          onChange={(obj) => addFilter('gender', obj)}
+          value = { filters ?
+            gender.filter(option => 
+              option.value === filters.gender) : {}
+          }
+        />
+        <Select
+          className='select-nat' 
+          placeholder='Nationality'
+          isMulti
+          value = { filters ?
+            options.filter(option => 
+              filteredNat.includes(option.value)
+            ) : {}
+          }
+          options={options} onChange={(obj) => addFilter('nat', obj)} 
+        />
+        <button className='btn btn-success'
+          onClick={onSearch}> Apply filters</button>
+    </div>
+  )
 }
 
-
-export default Search; 
+export default Search
