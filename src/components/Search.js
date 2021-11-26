@@ -14,12 +14,17 @@ function Search(props) {
 
 
   const options = [
-    { value: 'au', label: 'Austria',},
-    { value: 'br', label: 'Brasilia',},
-    { value: 'ca', label: 'Canada', },
-    { value: 'fr', label: 'France',},
-    { value: 'de', label: 'Germany',},
-    { value: 'us', label: 'United States',}
+   { value: 'au', label: 'Austria'},
+    { value: 'br', label: 'Brasilia'},
+    { value: 'ca', label: 'Canada' },
+    { value: 'fr', label: 'France'},
+    { value: 'de', label: 'Germany'},
+    { value: 'us', label: 'United States'},
+    { value: 'ch', label: 'Switzerland'},
+    { value: 'es', label: 'Spain'},
+    { value: 'fi', label: 'Finland'},
+    { value: 'ie', label: 'Republic of Ireland'},
+    { value: 'ir', label: 'Iran'},
   ]; 
  
   const  gender = [
