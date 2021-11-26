@@ -19,9 +19,7 @@ function Search(props) {
     { value: 'ca', label: 'Canada', },
     { value: 'fr', label: 'France',},
     { value: 'de', label: 'Germany',},
-    { value: 'US', label: 'United States',}
-    // {AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IR, NO, NL,
-    // NZ, TR, US }
+    { value: 'us', label: 'United States',}
   ]; 
  
   const  gender = [
